@@ -1,7 +1,12 @@
+// const { resolve, join } = require('path')
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+
+const nodeModulesPath = resolve(__dirname, '../../node_modules')
+const CLIENT_FOLDER = resolve(__dirname, '../')
+const SERVER_FOLDER = resolve(__dirname, '../../server')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -9,7 +14,13 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './client/src/main.js'
+    // 'modules/admin': [
+    //   CLIENT_FOLDER + '/src/modules/admin/app'
+    // ],
+    // 'modules/front': [
+    //   CLIENT_FOLDER + '/src/modules/front/entry-client'
+    // ]
   },
   output: {
     path: config.build.assetsRoot,
@@ -20,6 +31,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
+    modules: [resolve('../node_modules')],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
